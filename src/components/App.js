@@ -36,7 +36,7 @@ export default class App {
     );
     this.suggestion = new Suggestion(
       $target,
-      { items: fetchedLanguages, focusedIdx: 0 },
+      { items: fetchedLanguages, focusedIdx: 0, keyword },
       (item) => {
         if (!item) {
           alert('언어를 선택해주세요.');
@@ -57,7 +57,10 @@ export default class App {
   setState(nextState) {
     this.state = { ...this.state, ...nextState };
 
-    this.suggestion.setState({ items: this.state.fetchedLanguages });
+    this.suggestion.setState({
+      items: this.state.fetchedLanguages,
+      keyword: this.state.keyword,
+    });
     this.selectedLanguages.setState({ items: this.state.selectedLanguages });
 
     saveData(KEY_APP_STATES, this.state);

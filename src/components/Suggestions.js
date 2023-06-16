@@ -18,20 +18,34 @@ export default class Suggestion {
     this.render();
   }
 
+  renderMatchedItem = (keyword, item) => {
+    const matchedText = item.match(new RegExp(keyword, 'gi'))[0];
+
+    if (!matchedText) {
+      return item;
+    }
+
+    return item.replace(
+      new RegExp(matchedText, 'gi'),
+      `<span class="Suggestion__item--matched">${matchedText}</span>`
+    );
+  };
+
   render() {
-    if (this.state.items.length === 0) {
+    const { items, focusedIdx, keyword } = this.state;
+    if (items.length === 0) {
       this.$el.style.display = 'none';
     } else {
       this.$el.style.display = 'block';
       this.$el.innerHTML = `
         <ul>
-            ${this.state.items
+            ${items
               .map((item, i) => {
                 const selected =
-                  this.state.focusedIdx === i
-                    ? 'Suggestion__item--selected'
-                    : '';
-                return `<li class="${selected}" data-index=${i}>${item}</li>`;
+                  focusedIdx === i ? 'Suggestion__item--selected' : '';
+                return `<li class="${selected}" data-index=${i}>
+                    ${this.renderMatchedItem(keyword, item)}
+                </li>`;
               })
               .join('')}
         </ul>
