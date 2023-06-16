@@ -11,6 +11,11 @@ export default class App {
   };
 
   searchKeyword = debounce(async (keyword) => {
+    if (keyword === '') {
+      this.setState({ fetchedLanguages: [] });
+      return;
+    }
+
     const langs = await api.searchKeyword(keyword);
     this.setState({ fetchedLanguages: langs });
   }, 300);
