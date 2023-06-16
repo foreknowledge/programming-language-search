@@ -27,7 +27,9 @@ export default class App {
     this.suggestion = new Suggestion(
       $target,
       { items: this.state.fetchedLanguages, focusedIdx: 0 },
-      (item) => {}
+      (item) => {
+        console.log(item);
+      }
     );
   }
 

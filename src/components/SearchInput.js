@@ -26,5 +26,9 @@ export default class SearchInput {
     $input.addEventListener('input', (e) => {
       this.onChange(e.target.value);
     });
+
+    this.$el.addEventListener('submit', (e) => {
+      e.preventDefault();
+    });
   }
 }
