@@ -11,9 +11,19 @@ export default class SelectedLanguages {
   }
 
   setState(nextState) {
-    this.state = nextState;
+    this.state = { ...this.state, ...nextState };
     this.render();
   }
 
-  render() {}
+  render() {
+    this.$el.innerHTML = `
+        <ul>
+            ${this.state.items
+              .map((item) => {
+                return `<li>${item}</li>`;
+              })
+              .join('')}
+        </ul>
+    `;
+  }
 }

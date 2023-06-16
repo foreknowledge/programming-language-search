@@ -14,7 +14,7 @@ export default class Suggestion {
   }
 
   setState(nextState) {
-    this.state = nextState;
+    this.state = { ...this.state, ...nextState };
     this.render();
   }
 
@@ -53,10 +53,7 @@ export default class Suggestion {
             : focusedIdx + 1 > items.length - 1
             ? 0
             : focusedIdx + 1;
-        this.setState({
-          ...this.state,
-          focusedIdx: nextIdx,
-        });
+        this.setState({ focusedIdx: nextIdx });
       } else if (key === 'Enter') {
         const { focusedIdx, items } = this.state;
         const selectedItem = items[focusedIdx];
@@ -71,10 +68,7 @@ export default class Suggestion {
 
       const index = parseInt(e.target.dataset.index);
       const selectedItem = this.state.items[index];
-      this.setState({
-        ...this.state,
-        focusedIdx: 0,
-      });
+      this.setState({ focusedIdx: 0 });
       this.onSelect(selectedItem);
     });
   }

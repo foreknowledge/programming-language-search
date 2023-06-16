@@ -28,7 +28,14 @@ export default class App {
       $target,
       { items: this.state.fetchedLanguages, focusedIdx: 0 },
       (item) => {
-        console.log(item);
+        alert(item);
+
+        const nextSelectedLanguages = this.state.selectedLanguages.filter(
+          (lang) => lang !== item
+        );
+        nextSelectedLanguages.push(item);
+
+        this.setState({ selectedLanguages: nextSelectedLanguages });
       }
     );
   }
@@ -36,10 +43,7 @@ export default class App {
   setState(nextState) {
     this.state = { ...this.state, ...nextState };
 
-    this.suggestion.setState({
-      items: this.state.fetchedLanguages,
-      focusedIdx: 0,
-    });
+    this.suggestion.setState({ items: this.state.fetchedLanguages });
     this.selectedLanguages.setState({ items: this.state.selectedLanguages });
   }
 }
