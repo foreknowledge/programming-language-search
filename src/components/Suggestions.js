@@ -20,6 +20,19 @@ export default class Suggestion {
       this.$el.style.display = 'none';
     } else {
       this.$el.style.display = 'block';
+      this.$el.innerHTML = `
+        <ul>
+            ${this.state.items
+              .map((item, i) => {
+                const selected =
+                  this.state.focusedIdx === i
+                    ? 'Suggestion__item--selected'
+                    : '';
+                return `<li class="${selected}" data-index=${i}>${item}</li>`;
+              })
+              .join('')}
+        </ul>
+      `;
     }
   }
 }
